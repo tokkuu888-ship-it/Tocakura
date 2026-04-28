@@ -23,6 +23,11 @@ app.include_router(progress.router)
 app.include_router(dashboard.router)
 
 
+@app.get("/")
+def read_root():
+    return {"message": "PhD Seminar API is running", "status": "ok"}
+
+
 @app.on_event("startup")
 def on_startup():
     Base.metadata.create_all(bind=engine)
