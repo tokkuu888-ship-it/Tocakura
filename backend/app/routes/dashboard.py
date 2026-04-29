@@ -1,0 +1,8 @@
+from fastapi import APIRouter, HTTPException, status
+
+router = APIRouter(prefix="/dashboard", tags=["dashboard"])
+
+
+@router.get("/")
+def read_dashboard():
+    raise HTTPException(status_code=status.HTTP_501_NOT_IMPLEMENTED, detail="Dashboard endpoint not implemented")

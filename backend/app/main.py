@@ -1,0 +1,33 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from app.database import engine, Base
+from app.routes import auth, users, seminars, progress, dashboard
+
+app = FastAPI(
+    title="PhD Seminar & Progress Monitoring",
+    description="Backend for managing seminar scheduling, progress reports, and supervisory review.",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://frontend-tokumas-projects.vercel.app", "http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(auth.router)
+app.include_router(users.router)
+app.include_router(seminars.router)
+app.include_router(progress.router)
+app.include_router(dashboard.router)
+
+
+@app.get("/")
+def read_root():
+    return {"message": "PhD Seminar API is running", "status": "ok"}
+
+
+@app.on_event("startup")
+def on_startup():
+    Base.metadata.create_all(bind=engine)
