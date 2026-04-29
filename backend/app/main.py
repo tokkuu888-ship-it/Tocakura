@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.database import engine, Base
-from app.routes import auth, users, seminars, progress, dashboard
+from database import engine, Base
+from routes import auth, users, seminars, progress, dashboard
 
 app = FastAPI(
     title="PhD Seminar & Progress Monitoring",
